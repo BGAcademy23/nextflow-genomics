@@ -43,7 +43,7 @@ The outline may change if I come up with a better idea while generating the mate
 
 1. Expertise with linux command line basics (`cd`, `mv`, `rm`, `wget`, `curl` etc)
 2. Understanding of bash scripts, and the need for bioinformatics workflows
-3. Understand the general role and input/output files of the following tools : (hifiasm HiFi only)[https://hifiasm.readthedocs.io/en/latest/pa-assembly.html], (Quast)[https://github.com/ablab/quast], (multiQC)[https://multiqc.info]
+3. Understand the general role and input/output files of the following tools : [hifiasm HiFi only](https://hifiasm.readthedocs.io/en/latest/pa-assembly.html), [Quast](https://github.com/ablab/quast), [multiQC](https://multiqc.info)
 
 !!! warning "Please make sure you MEET THE PREREQUISITES and READ THE DESCRIPTION above"
 
