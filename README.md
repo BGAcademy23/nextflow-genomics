@@ -4,12 +4,14 @@ This session is part of [**Biodiversity Genomics Academy 2023**](https://BGA23.o
 
 ## Session Leader(s)
 
-Solenne Correard  
+Solenne Correard, Resarch associate for the Canada Biogenome Project
 I would like to acknowledge that I am living and working on the traditional, ancestral, and unceded territory of the Musqueam, Squamish and Tsleil-Waututh people.
 
-Canada Biogenome Project  
+Affiliation :
 
 Canada's Michael Smith Genome Sciences Centre
+
+BC Cancer Research Centre
 
 
 
