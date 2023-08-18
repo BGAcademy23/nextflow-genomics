@@ -6,8 +6,12 @@ This session is part of [**Biodiversity Genomics Academy 2023**](https://BGA23.o
 
 Solenne Correard  
 I would like to acknowledge that I am living and working on the traditional, ancestral, and unceded territory of the Musqueam, Squamish and Tsleil-Waututh people.
+
 Canada Biogenome Project  
+
 Canada's Michael Smith Genome Sciences Centre
+
+
 
 I did my PhD in France studying the dog genome (mostly the non-coding part), followed by a post-doc on the Silent Genomes Project, a project aiming to reduce health care disparities and improve diagnostic success for children with rare genetic diseases from Indigenous populations in Canada. I am now leading the bioinformatic analysis for the Canadian BioGenome Project.
 
