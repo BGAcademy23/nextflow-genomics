@@ -13,27 +13,21 @@ tasks:
     curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
     bash Mambaforge-$(uname)-$(uname -m).sh -b -p /workspace/conda && rm Mambaforge-$(uname)-$(uname -m).sh
     /workspace/conda/bin/mamba init bash
-
     source ${HOME}/.bashrc
 
 - name: Install Nextflow
   # https://www.nextflow.io/docs/latest/getstarted.html
-    init: |
-      cd /workspace/treeval-curation/
-      
-      wget -qO- https://get.nextflow.io | bash
+  init: |
+    cd /workspace/nextflow-genomics/      
+    wget -qO- https://get.nextflow.io | bash
+    chmod +x nextflow
+    nextflow self-update
 
-      chmod +x nextflow
-
-      nextflow self-update
-
-  - name: Alias Nextflow
-    init: |
-      cd /workspace/treeval-curation/
-      
-      echo "alias nextflow_cmd='/workspace/treeval-curation/nextflow'" >> ~/.bashrc
-
-      source ~/.bashrc
+- name: Alias Nextflow
+  init: |
+    cd /workspace/nextflow-genomics/
+    echo "alias nextflow_cmd='/workspace/nextflow-genomics/nextflow'" >> ~/.bashrc
+    source ~/.bashrc
 
 
       
