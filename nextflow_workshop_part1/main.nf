@@ -56,7 +56,7 @@ process HIFIASM {
 workflow {
 
 	pacbio_bam_file = [
-		[ id:params.id, single_end: true],
+		[ id:'test_run', single_end: true],
 		[ file(params.pacbio_bam, checkIfExists: true)]
 	]
 	
