@@ -1,6 +1,27 @@
 // Declare syntax version
 nextflow.enable.dsl=2
 
+process PBINDEX {
+
+    conda "bioconda::pbtk==3.1.0"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/pbtk:3.1.0--h9ee0642_0':
+        'quay.io/biocontainers/pbtk' }"
+
+    input:
+    tuple val(meta), path(bam)
+
+    output:
+    tuple val(meta), path('*.bam.pbi'), emit: index
+
+    script:
+    """
+    pbindex \\
+        $bam
+    """
+}
+
+
 process BAM2FASTX {
 
     conda "bioconda::pbtk==3.1.0"
@@ -9,7 +30,7 @@ process BAM2FASTX {
         'quay.io/biocontainers/pbtk' }"
         
   input:
-    tuple val(meta), path(bam)
+    tuple val(meta), path(bam), path (index)
 
   output:
     tuple val(meta), path('*.fastq.gz'), emit: reads
@@ -60,6 +81,7 @@ workflow {
 		[ file(params.pacbio_bam, checkIfExists: true)]
 	]
 	
-   BAM2FASTX(pacbio_bam_file)
+   PBINDEX(pacbio_bam_file)
+   BAM2FASTX(pacbio_bam_file.join(PBINDEX.out.index))
    HIFIASM(BAM2FASTX.out.reads)
 }
