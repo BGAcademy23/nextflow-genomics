@@ -1,6 +1,12 @@
 image: gitpod/workspace-base
 
 tasks:
+- name: wget files
+  init: |
+    mkdir -p /workspace/test_files
+    cd /workspace/test_files
+    wget https://github.com/bcgsc/Canadian_Biogenome_Project/raw/V2/example_input/subset_covid_hifi.bam
+    cd ..
 - name: install mamba
   command: |
     curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
