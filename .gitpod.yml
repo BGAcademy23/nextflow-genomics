@@ -3,8 +3,8 @@ image: gitpod/workspace-full-vnc
 tasks:
 - name: wget files
   init: |
-    mkdir -p /workspace/test_files
-    cd /workspace/test_files
+    mkdir -p /workspace/nextflow-genomics/test_files
+    cd /workspace/nextflow-genomics/test_files
     wget https://github.com/bcgsc/Canadian_Biogenome_Project/raw/V2/example_input/subset_covid_hifi.bam
     cd ..
 
