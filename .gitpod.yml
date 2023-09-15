@@ -7,6 +7,7 @@ tasks:
     cd /workspace/test_files
     wget https://github.com/bcgsc/Canadian_Biogenome_Project/raw/V2/example_input/subset_covid_hifi.bam
     cd ..
+
 - name: install mamba
   command: |
     curl -L -O "https://github.com/conda-forge/miniforge/releases/latest/download/Mambaforge-$(uname)-$(uname -m).sh"
@@ -15,6 +16,27 @@ tasks:
 
     source ${HOME}/.bashrc
 
+- name: Install Nextflow
+  # https://www.nextflow.io/docs/latest/getstarted.html
+    init: |
+      cd /workspace/treeval-curation/
+      
+      wget -qO- https://get.nextflow.io | bash
+
+      chmod +x nextflow
+
+      nextflow self-update
+
+  - name: Alias Nextflow
+    init: |
+      cd /workspace/treeval-curation/
+      
+      echo "alias nextflow_cmd='/workspace/treeval-curation/nextflow'" >> ~/.bashrc
+
+      source ~/.bashrc
+
+
+      
 vscode:
   extensions:
     - anwar.papyrus-pdf
