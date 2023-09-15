@@ -3,7 +3,7 @@ nextflow.enable.dsl=2
 
 process BAM2FASTX {
 
-    conda (params.enable_conda ? "bioconda::pbtk==3.1.0" : null)
+    conda "bioconda::pbtk==3.1.0"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/pbtk:3.1.0--h9ee0642_0':
         'quay.io/biocontainers/pbtk' }"
