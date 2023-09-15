@@ -30,7 +30,8 @@ process BAM2FASTX {
         'quay.io/biocontainers/pbtk' }"
         
   input:
-    tuple val(meta), path(bam), path (index)
+    tuple val(meta), path(bam)
+    tuple val(meta), path(index)
 
   output:
     tuple val(meta), path('*.fastq.gz'), emit: reads
@@ -82,6 +83,6 @@ workflow {
 	]
 	
    PBINDEX(pacbio_bam_file)
-   BAM2FASTX(pacbio_bam_file.join(PBINDEX.out.index))
+   BAM2FASTX(pacbio_bam_file, PBINDEX.out.index)
    HIFIASM(BAM2FASTX.out.reads)
 }
