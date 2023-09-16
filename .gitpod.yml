@@ -14,6 +14,7 @@ tasks:
     bash Mambaforge-$(uname)-$(uname -m).sh -b -p /workspace/conda && rm Mambaforge-$(uname)-$(uname -m).sh
     /workspace/conda/bin/mamba init bash
     source ${HOME}/.bashrc
+    mamba create --mkdir --yes --quiet  bioconda::hifiasm=0.18.5 -n hifiasm
 
 - name: Install Nextflow
   # https://www.nextflow.io/docs/latest/getstarted.html
