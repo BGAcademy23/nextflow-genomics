@@ -6,6 +6,8 @@ tasks:
     mkdir -p /workspace/nextflow-genomics/test_files
     cd /workspace/nextflow-genomics/test_files
     wget https://github.com/bcgsc/Canadian_Biogenome_Project/raw/V2/example_input/subset_covid_hifi.bam
+    wget https://github.com/chhylp123/hifiasm/releases/download/v0.7/chr11-2M.fa.gz
+    
     cd ..
 
 - name: install mamba
