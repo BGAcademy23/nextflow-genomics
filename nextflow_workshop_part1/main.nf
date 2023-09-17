@@ -49,8 +49,7 @@ process BAM2FASTX {
 
 process HIFIASM {
 
-//    conda "bioconda::hifiasm=0.18.5"
-    conda "/workspace/conda/envs/hifiasm"
+    conda "bioconda::hifiasm=0.18.5"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'https://depot.galaxyproject.org/singularity/hifiasm:0.18.5--h5b5514e_0' :
         'biocontainers/hifiasm:0.18.5--h5b5514e_0' }"
@@ -69,6 +68,7 @@ process HIFIASM {
     def prefix = task.ext.prefix ?: "${meta.id}"
     """
     hifiasm \\
+	$args \\
         -o ${prefix}.asm \\
         $reads
     """
