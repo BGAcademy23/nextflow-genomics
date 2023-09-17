@@ -15,8 +15,7 @@ tasks:
     /workspace/conda/bin/mamba init bash
     source ${HOME}/.bashrc
 
-    mamba create --mkdir --yes --quiet  bioconda::hifiasm=0.18.5 -n hifiasm
-    
+    mamba create -n rapid -c bioconda hifiasm -y    
 
 - name: Install Nextflow
   # https://www.nextflow.io/docs/latest/getstarted.html
