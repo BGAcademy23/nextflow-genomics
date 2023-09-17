@@ -1,6 +1,10 @@
 // Declare syntax version
 nextflow.enable.dsl=2
 
+include { PBINDEX } from './modules//pbindex/main.nf'
+include { BAM2FASTX } from './modules/bam2fastx/main.nf'
+include { HIFIASM } from './modules/hifiasm/main.nf'
+include { QUAST } from './modules/quast/main.nf'
 
 workflow {
 
