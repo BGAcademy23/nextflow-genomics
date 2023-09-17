@@ -105,6 +105,11 @@ workflow {
 		[ id:'test_run', single_end: true],
 		[ file(params.pacbio_bam, checkIfExists: true)]
 	]
+
+	fastq_file = [
+		[ id:'test_run', single_end: true],
+		[ file(params.fastq_file, checkIfExists: true)]
+	]
 	
    PBINDEX(pacbio_bam_file)
    BAM2FASTX(pacbio_bam_file, PBINDEX.out.index)
