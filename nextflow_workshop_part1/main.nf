@@ -1,52 +1,6 @@
 // Declare syntax version
 nextflow.enable.dsl=2
 
-process PBINDEX {
-
-    conda "bioconda::pbtk==3.1.0"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/pbtk:3.1.0--h9ee0642_0':
-        'quay.io/biocontainers/pbtk' }"
-
-    input:
-    tuple val(meta), path(bam)
-
-    output:
-    tuple val(meta), path('*.bam.pbi'), emit: index
-
-    script:
-    """
-    pbindex \\
-        $bam
-    """
-}
-
-
-process BAM2FASTX {
-
-    conda "bioconda::pbtk==3.1.0"
-    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/pbtk:3.1.0--h9ee0642_0':
-        'quay.io/biocontainers/pbtk' }"
-        
-  input:
-    tuple val(meta), path(bam)
-    tuple val(meta), path(index)
-
-  output:
-    tuple val(meta), path('*.fastq.gz'), emit: reads
-
-    script:
-    def args = task.ext.args ?: ''
-    def prefix = task.ext.prefix ?: "${meta.id}"    
-    """
-    bam2fastq \\
-        -o ${prefix} \\
-        $bam \\
-        > ${prefix}.bam2fastx.log
-    """
-}
-
 process HIFIASM {
 
     conda "bioconda::hifiasm=0.18.5"
@@ -101,18 +55,11 @@ process SAMTOOLS_FAIDX {
 
 workflow {
 
-	pacbio_bam_file = [
-		[ id:'test_run', single_end: true],
-		[ file(params.pacbio_bam, checkIfExists: true)]
-	]
-
 	fastq_file = [
 		[ id:'test_run', single_end: true],
 		[ file(params.fastq_file, checkIfExists: true)]
 	]
-	
-   PBINDEX(pacbio_bam_file)
-   BAM2FASTX(pacbio_bam_file, PBINDEX.out.index)
-   HIFIASM(BAM2FASTX.out.reads)
+
+   HIFIASM(fastq_file)
    SAMTOOLS_FAIDX(HIFIASM.out.assembly)
 }
