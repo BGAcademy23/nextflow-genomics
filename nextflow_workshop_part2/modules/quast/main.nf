@@ -16,7 +16,7 @@ process QUAST {
 
     script:
     def args = task.ext.args   ?: ''
-    prefix   = task.ext.prefix ?: 'quast'
+    def prefix = task.ext.prefix ?: "${meta.id}"
     """
     quast.py \\
         --output-dir $prefix \\
