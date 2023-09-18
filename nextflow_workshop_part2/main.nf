@@ -14,5 +14,5 @@ workflow {
 	
    HIFIASM(BAM2FASTX.out.reads)
    GFA_TO_FA(HIFIASM.out.assembly)
-   QUAST(GFA_TO_FA.out.assembly)
+   QUAST(GFA_TO_FA.out.fa_assembly)
 }
