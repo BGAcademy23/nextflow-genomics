@@ -50,5 +50,62 @@ The outline may change if I come up with a better idea while generating the mate
     You will get the most out of this session if you meet the prerequisites above.
 
     Please also read the description carefully to see if this session is relevant to you.
+
+## Tutorial
+
+We will be using GitPod for this tutorial so [**SEND ME TO GITPOD!**](https://gitpod.io/#https://github.com/BGAcademy23/nextflow-genomics).
+
+Do not use safari
+
+Give it a minute to install nextflow and mamba...
+
+!! Open a new terminal in gitpod !! 
+
+(If you don't do that, nextflow and conda won't work)
+
+### Part 1 
+
+1, Launching your first pipeline (example with hifiasm)
+
+```
+nextflow-genomics/nextflow_workshop_part1/
+```
+
+You will see 2 files : nextflow.config and main.nf
+
+Feel free to look at the files!
+
+Launch your nextflow pipeline
+
+```
+nextflow_cmd run main.nf -profile mamba
+```
     
-    If you don't meet the prerequisites or change your mind based on the description or are no longer available at the session time, please email tol-training at sanger.ac.uk to cancel your slot so that someone else on the waitlist might attend.
+2, Adding a module (example with Quast)
+
+Try to do it on your own :
+
+in the main.nf file, Copy / paste a previous module as a template (for example hifiasm)
+
+Replace the conda and singularity info for the module of interest
+
+Identify the input and output files
+
+Include the code for the given module (often on the github of the tool)
+
+Include the newly generated process in the workflow
+
+Try and correct the errors
+```
+nextflow run main.nf –profile mamba -resume
+```
+
+<details>
+<summary>Solution</summary>
+	There are several ways of coding a module, here is an example for quast :
+
+	```
+	nextflow run main.nf –profile mamba -resume
+	```    
+</details>
+
