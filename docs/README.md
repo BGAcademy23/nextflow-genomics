@@ -68,7 +68,7 @@ Give it a minute to install nextflow and mamba...
 1. Launching your first pipeline (example with hifiasm)
 
 ```
-nextflow-genomics/nextflow_workshop_part1/
+cd nextflow-genomics/nextflow_workshop_part1/
 ```
 
 You will see 2 files : nextflow.config and main.nf
@@ -181,4 +181,70 @@ process QUAST {
 }
 ```    
 </details>
+
+
+### Part 2
+
+3. Add a module using nf-core
+
+```
+cd nextflow-genomics/nextflow_workshop_part2/
+```
+
+You will see a new folder : 'modules'
+
+Feel free to look inside the folder and sub-folders!
+
+Launch this nextflow pipeline
+
+```
+nextflow_cmd run main.nf -profile mamba
+```
+
+Now add the samtools_faidx module to your pipeline
+
+<details>
+<summary>Solution</summary>
+Create the appropriate folder for samtools_faidx module
+
+```
+mkdir modules/samtools_faidx
+```
+
+Copy the nf-core/samtools_faidx process in this folder : https://github.com/nf-core/modules/blob/master/modules/nf-core/samtools/faidx/main.nf
+
+```
+vi modules/samtools_faidx/main.nf
+```
+
+Modify the workflow main.nf to include this new process
+
+```
+// Declare syntax version
+nextflow.enable.dsl=2
+
+include { HIFIASM } from './modules/hifiasm/main.nf'
+include { QUAST } from './modules/quast/main.nf'
+include { SAMTOOLS_FAIDX } from './modules/samtools_faidx/main.nf'
+
+workflow {
+
+        fastq_file = [
+                [ id:'test_run', single_end: true],
+                [ file(params.fastq_file, checkIfExists: true)]
+        ]
+	
+   HIFIASM(fastq_file)
+   QUAST(HIFIASM.out.assembly_fa)
+   SAMTOOLS_FAIDX(HIFIASM.out.assembly_fa)
+}
+```
+
+
+
+
+
+
+</details>
+
 
