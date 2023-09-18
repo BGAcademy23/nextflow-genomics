@@ -179,6 +179,6 @@ process QUAST {
     mv ${prefix}/report.tsv report.tsv
     """
 }
-	```    
+```    
 </details>
 
