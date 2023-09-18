@@ -102,10 +102,83 @@ nextflow run main.nf –profile mamba -resume
 
 <details>
 <summary>Solution</summary>
-	There are several ways of coding a module, here is an example for quast :
+	There are several ways of coding a module, here is an example for the main.nf file to run hifiasm then quast :
 
 	```
-	nextflow run main.nf –profile mamba -resume
+	// Declare syntax version
+nextflow.enable.dsl=2
+
+workflow {
+
+	fastq_file = [
+		[ id:'test_run', single_end: true],
+		[ file(params.fastq_file, checkIfExists: true)]
+	]
+
+   HIFIASM(fastq_file)
+   QUAST(HIFIASM.out.assembly_fa)
+}
+
+process HIFIASM {
+
+    conda "bioconda::hifiasm=0.18.5"
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/hifiasm:0.18.5--h5b5514e_0' :
+        'biocontainers/hifiasm:0.18.5--h5b5514e_0' }"
+
+  input:
+    tuple val(meta), path(reads)
+
+  output:
+    tuple val(meta), path("*.gfa"), emit: assembly_gfa
+    tuple val(meta), path("*.fa"), emit: assembly_fa
+
+    when:
+    task.ext.when == null || task.ext.when
+
+    script:
+    def args = task.ext.args ?: ''
+    def prefix = task.ext.prefix ?: "${meta.id}"
+    """
+    hifiasm \\
+	$args \\
+        -o ${prefix}.asm \\
+        $reads
+
+    #Transform gfa to fa
+    awk '/^S/{print ">"\$2;print \$3}' ${prefix}.asm.gfa > ${prefix}.fa
+    """
+}
+
+process QUAST {
+
+    conda 'bioconda::quast=5.2.0'
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'https://depot.galaxyproject.org/singularity/quast:5.2.0--py39pl5321h2add14b_1' :
+        'quay.io/biocontainers/quast:5.2.0--py39pl5321h2add14b_1' }"
+
+    input:
+    tuple val(meta), path (fasta)
+
+    output:
+    path 'report.tsv'        , emit: tsv
+
+    when:
+    task.ext.when == null || task.ext.when
+
+    script:
+    def args = task.ext.args   ?: ''
+    def est_ref_size = genome_size ? "--est-ref-size $genome_size" : ""
+    prefix   = task.ext.prefix ?: 'quast'
+    """
+    quast.py \\
+        --output-dir $prefix \\
+        $args \\
+        $fasta
+        
+    mv ${prefix}/report.tsv report.tsv
+    """
+}
 	```    
 </details>
 
