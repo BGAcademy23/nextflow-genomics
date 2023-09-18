@@ -9,7 +9,8 @@ process HIFIASM {
     tuple val(meta), path(reads)
 
   output:
-    tuple val(meta), path("*.gfa"), emit: assembly
+    tuple val(meta), path("*.gfa"), emit: assembly_gfa
+    tuple val(meta), path("*.fa"), emit: assembly_fa
 
     when:
     task.ext.when == null || task.ext.when
@@ -22,5 +23,8 @@ process HIFIASM {
 	$args \\
         -o ${prefix}.asm \\
         $reads
+
+    #Transform gfa to fa
+    awk '/^S/{print ">"\$2;print \$3}' ${prefix}.asm.gfa > ${prefix}.fa
     """
 }
