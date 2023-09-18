@@ -168,7 +168,6 @@ process QUAST {
 
     script:
     def args = task.ext.args   ?: ''
-    def est_ref_size = genome_size ? "--est-ref-size $genome_size" : ""
     prefix   = task.ext.prefix ?: 'quast'
     """
     quast.py \\
