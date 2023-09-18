@@ -65,7 +65,7 @@ Give it a minute to install nextflow and mamba...
 
 ### Part 1 
 
-1, Launching your first pipeline (example with hifiasm)
+1. Launching your first pipeline (example with hifiasm)
 
 ```
 nextflow-genomics/nextflow_workshop_part1/
@@ -81,31 +81,31 @@ Launch your nextflow pipeline
 nextflow_cmd run main.nf -profile mamba
 ```
     
-2, Adding a module (example with Quast)
+2. Adding a module (example with Quast)
 
 Try to do it on your own :
 
-in the main.nf file, Copy / paste a previous module as a template (for example hifiasm)
+- in the main.nf file, Copy / paste a previous module as a template (for example hifiasm)
 
-Replace the conda and singularity info for the module of interest
+- Replace the conda and singularity info for the module of interest
 
-Identify the input and output files
+- Identify the input and output files
 
-Include the code for the given module (often on the github of the tool)
+- Include the code for the given module (often on the github of the tool)
 
-Include the newly generated process in the workflow
+- Include the newly generated process in the workflow
 
-Try and correct the errors
+- Try and correct the errors
 ```
 nextflow run main.nf –profile mamba -resume
 ```
 
 <details>
 <summary>Solution</summary>
-	There are several ways of coding a module, here is an example for the main.nf file to run hifiasm then quast :
+There are several ways of coding a module, here is an example for the main.nf file to run hifiasm then quast :
 
-	```
-	// Declare syntax version
+```
+// Declare syntax version
 nextflow.enable.dsl=2
 
 workflow {
