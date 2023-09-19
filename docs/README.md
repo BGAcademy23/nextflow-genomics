@@ -143,6 +143,7 @@ process HIFIASM {
     hifiasm \\
 	$args \\
         -o ${prefix}.asm \\
+        -t $task.cpus \\
         $reads
 
     #Transform gfa to fa
