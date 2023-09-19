@@ -235,7 +235,7 @@ workflow {
 	
    HIFIASM(fastq_file)
    QUAST(HIFIASM.out.assembly_fa)
-   SAMTOOLS_FAIDX(HIFIASM.out.assembly_fa)
+   SAMTOOLS_FAIDX(HIFIASM.out.assembly_fa, [[],[]])
 }
 ```
 
