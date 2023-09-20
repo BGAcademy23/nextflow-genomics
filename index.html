@@ -1,0 +1,761 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.3.2">
+    
+    
+      
+        <title>nextflow-genomics</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.30068a00.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction-to-nextflow-for-genomics" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="nextflow-genomics" class="md-header__button md-logo" aria-label="nextflow-genomics" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            nextflow-genomics
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Home
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="nextflow-genomics" class="md-nav__button md-logo" aria-label="nextflow-genomics" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    nextflow-genomics
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="." class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#zoom-link-wed-20-sep-2300-utc" class="md-nav__link">
+    Zoom Link Wed 20 Sep 23:00 UTC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-leaders" class="md-nav__link">
+    Session Leader(s)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial" class="md-nav__link">
+    Tutorial
+  </a>
+  
+    <nav class="md-nav" aria-label="Tutorial">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-1" class="md-nav__link">
+    Part 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-2" class="md-nav__link">
+    Part 2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://bga23.org" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BGA23
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#zoom-link-wed-20-sep-2300-utc" class="md-nav__link">
+    Zoom Link Wed 20 Sep 23:00 UTC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#session-leaders" class="md-nav__link">
+    Session Leader(s)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    Description
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tutorial" class="md-nav__link">
+    Tutorial
+  </a>
+  
+    <nav class="md-nav" aria-label="Tutorial">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-1" class="md-nav__link">
+    Part 1
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-2" class="md-nav__link">
+    Part 2
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+    <a href="https://github.com/bgacademy23/nextflow-genomics/blob/main/docs/README.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="introduction-to-nextflow-for-genomics">Introduction to NextFlow for genomics<a class="headerlink" href="#introduction-to-nextflow-for-genomics" title="Permanent link">&para;</a></h1>
+<p>This session is part of <a href="https://BGA23.org"><strong>Biodiversity Genomics Academy 2023</strong></a></p>
+<h3 id="zoom-link-wed-20-sep-2300-utc"><strong><a href="https://sanger.zoom.us/j/96119648460?pwd=ZnRxQWxLUXBUK0c0RDRPUGljaHJ6QT09">Zoom Link Wed 20 Sep 23:00 UTC</a></strong><a class="headerlink" href="#zoom-link-wed-20-sep-2300-utc" title="Permanent link">&para;</a></h3>
+<p><a href="https://www.addevent.com/dir/?client=alorivImKzRucZeDgmNK105600&amp;start=Wed+20+Sep+2023+23:00&amp;end=Thu+21+Sep+2023+01:00&amp;title=BGA23+Introduction+to+NextFlow+for+genomics&amp;location=Online%2C+Zoom&amp;timezone=Africa%2FMonrovia&amp;organizer=Biodiversity+Genomics+Academy+2023&amp;description=https%3A%2F%2Fsanger.zoom.us%2Fj%2F96119648460%3Fpwd%3DZnRxQWxLUXBUK0c0RDRPUGljaHJ6QT09%5Cn%5Cnhttps%3A%2F%2FBGA23.org%2Fnextflow-genomics">Add to calendar</a></p>
+<h2 id="session-leaders">Session Leader(s)<a class="headerlink" href="#session-leaders" title="Permanent link">&para;</a></h2>
+<p>Solenne Correard<br />
+I would like to acknowledge that I am living and working on the traditional, ancestral, and unceded territory of the Musqueam, Squamish and Tsleil-Waututh people.  </p>
+<p>Canada Biogenome Project<br />
+Canada's Michael Smith Genome Sciences Centre</p>
+<p>I did my PhD in France studying the dog genome (mostly the non-coding part), followed by a post-doc on the Silent Genomes Project, a project aiming to reduce health care disparities and improve diagnostic success for children with rare genetic diseases from Indigenous populations in Canada. I am now leading the bioinformatic analysis for the Canadian BioGenome Project.</p>
+<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
+<p>The session will last for about 1h30, and will be split in 2 parts of about 40 min each (we'll take a 10 min break in the middle).</p>
+<p>Each part will include an introduction, some coding and hopefully many questions and discussion!</p>
+<p>Outline of the session :</p>
+<ul>
+<li>Nextflow (Part 1) : What is it? When should I use it? How do I use it? </li>
+</ul>
+<p>Practice : Writing your first Nextflow pipeline to generate a contig assembly. </p>
+<ul>
+<li>NF-core (Part 2): What is it? When should I use it? How do I use it? </li>
+</ul>
+<p>Practice : Use NF-core tools to assess the quality of the generated assembly. </p>
+<ul>
+<li>Conclusion: Resources to learn more about Nextflow and NF-core and how to take part in the community.</li>
+</ul>
+<p>By the end of this session you will be able to:</p>
+<ol>
+<li>Read a nextflow pipeline and modify it</li>
+<li>Write a basic nextflow pipeline</li>
+<li>Use a nf-core pipeline</li>
+<li>How to join the nextflow / nf-core community</li>
+</ol>
+<p>The outline may change if I come up with a better idea while generating the material!</p>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Expertise with linux command line basics (<code>cd</code>, <code>mv</code>, <code>rm</code>, <code>wget</code>, <code>curl</code> etc)</li>
+<li>Understanding of bash scripts, and the need for bioinformatics workflows</li>
+<li>Understand the general role and input/output files of the following tools : <a href="https://hifiasm.readthedocs.io/en/latest/pa-assembly.html">hifiasm HiFi only</a>, <a href="https://github.com/ablab/quast">Quast</a>, <a href="https://multiqc.info">multiQC</a></li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Please make sure you MEET THE PREREQUISITES and READ THE DESCRIPTION above</p>
+<p>You will get the most out of this session if you meet the prerequisites above.</p>
+<p>Please also read the description carefully to see if this session is relevant to you.</p>
+</div>
+<h2 id="tutorial">Tutorial<a class="headerlink" href="#tutorial" title="Permanent link">&para;</a></h2>
+<p>We will be using GitPod for this tutorial so <a href="https://gitpod.io/#https://github.com/BGAcademy23/nextflow-genomics"><strong>SEND ME TO GITPOD!</strong></a>.</p>
+<p>Do not use safari</p>
+<p>Give it a minute to install nextflow and mamba...</p>
+<p>!! Open a new terminal in gitpod !! </p>
+<p>(If you don't do that, nextflow and conda won't work)</p>
+<h3 id="part-1">Part 1<a class="headerlink" href="#part-1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Launching your first pipeline (example with hifiasm)</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>cd nextflow-genomics/nextflow_workshop_part1/
+</code></pre></div>
+<p>You will see 2 files : nextflow.config and main.nf</p>
+<p>Feel free to look at the files!</p>
+<p>Launch your nextflow pipeline</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>nextflow_cmd run main.nf -profile mamba
+</code></pre></div>
+<ol>
+<li>Adding a module (example with Quast)</li>
+</ol>
+<p>Try to do it on your own :</p>
+<ul>
+<li>
+<p>in the main.nf file, Copy / paste a previous module as a template (for example hifiasm)</p>
+</li>
+<li>
+<p>Replace the conda and singularity info for the module of interest</p>
+</li>
+<li>
+<p>Identify the input and output files</p>
+</li>
+<li>
+<p>Include the code for the given module (often on the github of the tool)</p>
+</li>
+<li>
+<p>Include the newly generated process in the workflow</p>
+</li>
+<li>
+<p>Try and correct the errors
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>nextflow run main.nf –profile mamba -resume
+</code></pre></div></p>
+</li>
+</ul>
+<details>
+<summary>Solution</summary>
+There are several ways of coding a module, here is an example for the main.nf file to run hifiasm then quast :
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>// Declare syntax version
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>nextflow.enable.dsl=2
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>workflow {
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    fastq_file = [
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        [ id:&#39;test_run&#39;, single_end: true],
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        [ file(params.fastq_file, checkIfExists: true)]
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    ]
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>   HIFIASM(fastq_file)
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>   QUAST(HIFIASM.out.assembly_fa)
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>}
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>process HIFIASM {
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>    conda &quot;bioconda::hifiasm=0.18.5&quot;
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    container &quot;${ workflow.containerEngine == &#39;singularity&#39; &amp;&amp; !task.ext.singularity_pull_docker_container ?
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>        &#39;https://depot.galaxyproject.org/singularity/hifiasm:0.18.5--h5b5514e_0&#39; :
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>        &#39;biocontainers/hifiasm:0.18.5--h5b5514e_0&#39; }&quot;
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>  input:
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>    tuple val(meta), path(reads)
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>  output:
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>    tuple val(meta), path(&quot;*.gfa&quot;), emit: assembly_gfa
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>    tuple val(meta), path(&quot;*.fa&quot;), emit: assembly_fa
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>    when:
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>    task.ext.when == null || task.ext.when
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>    script:
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>    def args = task.ext.args ?: &#39;&#39;
+<a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>    def prefix = task.ext.prefix ?: &quot;${meta.id}&quot;
+<a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>    &quot;&quot;&quot;
+<a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>    hifiasm \\
+<a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>    $args \\
+<a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>        -o ${prefix}.asm \\
+<a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>        -t $task.cpus \\
+<a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>        $reads
+<a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>
+<a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>    #Transform gfa to fa
+<a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a>    awk &#39;/^S/{print &quot;&gt;&quot;\$2;print \$3}&#39; ${prefix}.asm.gfa &gt; ${prefix}.fa
+<a id="__codelineno-3-44" name="__codelineno-3-44" href="#__codelineno-3-44"></a>    &quot;&quot;&quot;
+<a id="__codelineno-3-45" name="__codelineno-3-45" href="#__codelineno-3-45"></a>}
+<a id="__codelineno-3-46" name="__codelineno-3-46" href="#__codelineno-3-46"></a>
+<a id="__codelineno-3-47" name="__codelineno-3-47" href="#__codelineno-3-47"></a>process QUAST {
+<a id="__codelineno-3-48" name="__codelineno-3-48" href="#__codelineno-3-48"></a>
+<a id="__codelineno-3-49" name="__codelineno-3-49" href="#__codelineno-3-49"></a>    conda &#39;bioconda::quast=5.2.0&#39;
+<a id="__codelineno-3-50" name="__codelineno-3-50" href="#__codelineno-3-50"></a>    container &quot;${ workflow.containerEngine == &#39;singularity&#39; &amp;&amp; !task.ext.singularity_pull_docker_container ?
+<a id="__codelineno-3-51" name="__codelineno-3-51" href="#__codelineno-3-51"></a>        &#39;https://depot.galaxyproject.org/singularity/quast:5.2.0--py39pl5321h2add14b_1&#39; :
+<a id="__codelineno-3-52" name="__codelineno-3-52" href="#__codelineno-3-52"></a>        &#39;quay.io/biocontainers/quast:5.2.0--py39pl5321h2add14b_1&#39; }&quot;
+<a id="__codelineno-3-53" name="__codelineno-3-53" href="#__codelineno-3-53"></a>
+<a id="__codelineno-3-54" name="__codelineno-3-54" href="#__codelineno-3-54"></a>    input:
+<a id="__codelineno-3-55" name="__codelineno-3-55" href="#__codelineno-3-55"></a>    tuple val(meta), path (fasta)
+<a id="__codelineno-3-56" name="__codelineno-3-56" href="#__codelineno-3-56"></a>
+<a id="__codelineno-3-57" name="__codelineno-3-57" href="#__codelineno-3-57"></a>    output:
+<a id="__codelineno-3-58" name="__codelineno-3-58" href="#__codelineno-3-58"></a>    path &#39;report.tsv&#39;        , emit: tsv
+<a id="__codelineno-3-59" name="__codelineno-3-59" href="#__codelineno-3-59"></a>
+<a id="__codelineno-3-60" name="__codelineno-3-60" href="#__codelineno-3-60"></a>    when:
+<a id="__codelineno-3-61" name="__codelineno-3-61" href="#__codelineno-3-61"></a>    task.ext.when == null || task.ext.when
+<a id="__codelineno-3-62" name="__codelineno-3-62" href="#__codelineno-3-62"></a>
+<a id="__codelineno-3-63" name="__codelineno-3-63" href="#__codelineno-3-63"></a>    script:
+<a id="__codelineno-3-64" name="__codelineno-3-64" href="#__codelineno-3-64"></a>    def args = task.ext.args   ?: &#39;&#39;
+<a id="__codelineno-3-65" name="__codelineno-3-65" href="#__codelineno-3-65"></a>    prefix   = task.ext.prefix ?: &#39;quast&#39;
+<a id="__codelineno-3-66" name="__codelineno-3-66" href="#__codelineno-3-66"></a>    &quot;&quot;&quot;
+<a id="__codelineno-3-67" name="__codelineno-3-67" href="#__codelineno-3-67"></a>    quast.py \\
+<a id="__codelineno-3-68" name="__codelineno-3-68" href="#__codelineno-3-68"></a>        --output-dir $prefix \\
+<a id="__codelineno-3-69" name="__codelineno-3-69" href="#__codelineno-3-69"></a>        $args \\
+<a id="__codelineno-3-70" name="__codelineno-3-70" href="#__codelineno-3-70"></a>        $fasta
+<a id="__codelineno-3-71" name="__codelineno-3-71" href="#__codelineno-3-71"></a>
+<a id="__codelineno-3-72" name="__codelineno-3-72" href="#__codelineno-3-72"></a>    mv ${prefix}/report.tsv report.tsv
+<a id="__codelineno-3-73" name="__codelineno-3-73" href="#__codelineno-3-73"></a>    &quot;&quot;&quot;
+<a id="__codelineno-3-74" name="__codelineno-3-74" href="#__codelineno-3-74"></a>}
+</code></pre></div>
+</details>
+
+<h3 id="part-2">Part 2<a class="headerlink" href="#part-2" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Add a module using nf-core</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>cd nextflow-genomics/nextflow_workshop_part2/
+</code></pre></div>
+<p>You will see a new folder : 'modules'</p>
+<p>Feel free to look inside the folder and sub-folders!</p>
+<p>Launch this nextflow pipeline</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>nextflow_cmd run main.nf -profile mamba
+</code></pre></div>
+<p>Now add the samtools_faidx module to your pipeline</p>
+<details>
+<summary>Solution</summary>
+Create the appropriate folder for samtools_faidx module
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>mkdir modules/samtools_faidx
+</code></pre></div>
+
+Copy the nf-core/samtools_faidx process in this folder : https://github.com/nf-core/modules/blob/master/modules/nf-core/samtools/faidx/main.nf
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>vi modules/samtools_faidx/main.nf
+</code></pre></div>
+
+Modify the workflow main.nf to include this new process
+
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>// Declare syntax version
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>nextflow.enable.dsl=2
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>include { HIFIASM } from &#39;./modules/hifiasm/main.nf&#39;
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>include { QUAST } from &#39;./modules/quast/main.nf&#39;
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>include { SAMTOOLS_FAIDX } from &#39;./modules/samtools_faidx/main.nf&#39;
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>workflow {
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>        fastq_file = [
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>                [ id:&#39;test_run&#39;, single_end: true],
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>                [ file(params.fastq_file, checkIfExists: true)]
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>        ]
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>   HIFIASM(fastq_file)
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>   QUAST(HIFIASM.out.assembly_fa)
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>   SAMTOOLS_FAIDX(HIFIASM.out.assembly_fa, [[],[]])
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>}
+</code></pre></div>
+
+
+
+
+
+
+</details>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://twitter.com/BGAcademy23" target="_blank" rel="noopener" title="Biodiversity Genomics Academy 2023 on Twitter" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+    
+    
+      
+    
+    
+    
+    <a href="https://genomic.social/@BGAcademy23" target="_blank" rel="noopener me" title="Biodiversity Genomics Academy 2023 on Mastodon - Genomic.Social" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M433 179.11c0-97.2-63.71-125.7-63.71-125.7-62.52-28.7-228.56-28.4-290.48 0 0 0-63.72 28.5-63.72 125.7 0 115.7-6.6 259.4 105.63 289.1 40.51 10.7 75.32 13 103.33 11.4 50.81-2.8 79.32-18.1 79.32-18.1l-1.7-36.9s-36.31 11.4-77.12 10.1c-40.41-1.4-83-4.4-89.63-54a102.54 102.54 0 0 1-.9-13.9c85.63 20.9 158.65 9.1 178.75 6.7 56.12-6.7 105-41.3 111.23-72.9 9.8-49.8 9-121.5 9-121.5zm-75.12 125.2h-46.63v-114.2c0-49.7-64-51.6-64 6.9v62.5h-46.33V197c0-58.5-64-56.6-64-6.9v114.2H90.19c0-122.1-5.2-147.9 18.41-175 25.9-28.9 79.82-30.8 103.83 6.1l11.6 19.5 11.6-19.5c24.11-37.1 78.12-34.8 103.83-6.1 23.71 27.3 18.4 53 18.4 175z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["content.action.edit", "content.code.annotate", "content.code.copy", "navigation.footer", "navigation.top", "navigation.tracking", "search.highlight", "search.share", "search.suggest", "toc.follow"], "search": "assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+    
+  </body>
+</html>
