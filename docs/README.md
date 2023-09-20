@@ -2,6 +2,10 @@
 
 This session is part of [**Biodiversity Genomics Academy 2023**](https://BGA23.org)
 
+### **[Zoom Link Wed 20 Sep 23:00 UTC](https://sanger.zoom.us/j/96119648460?pwd=ZnRxQWxLUXBUK0c0RDRPUGljaHJ6QT09)**
+
+[Add to calendar](https://www.addevent.com/dir/?client=alorivImKzRucZeDgmNK105600&start=Wed+20+Sep+2023+23:00&end=Thu+21+Sep+2023+01:00&title=BGA23+Introduction+to+NextFlow+for+genomics&location=Online%2C+Zoom&timezone=Africa%2FMonrovia&organizer=Biodiversity+Genomics+Academy+2023&description=https%3A%2F%2Fsanger.zoom.us%2Fj%2F96119648460%3Fpwd%3DZnRxQWxLUXBUK0c0RDRPUGljaHJ6QT09%5Cn%5Cnhttps%3A%2F%2FBGA23.org%2Fnextflow-genomics)
+
 ## Session Leader(s)
 
 Solenne Correard  
